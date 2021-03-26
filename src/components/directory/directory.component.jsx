@@ -2,7 +2,7 @@ import React from 'react'
 import MenuItem from '../menu-item/menu-item.component'
 import './directory.styles.scss'
 
-
+//the linkUrl given in the array of sections is for the MenuItem component where we have used 'histroy.push'
 class Directory extends React.Component{
 constructor(){
     super();
@@ -54,16 +54,16 @@ constructor(){
 
 
 
-
-
+//s0   '...otherSectionProps' we used a spread operator  which is eqvilent to '{title,imageUrl,id,size,linkUrl}' first then we 
+//used it in MenuItem COmponent where '...otherSectionProps' is eqvialent to 'title={title} imageUrl={imageUrl} size={size} linkUrl={linkUrl}'
 
 render()
 {
     return(
 
         <div className="directory-menu">
-        {this.state.sections.map(({title,imageUrl,id,size}) => (
-            <MenuItem key={id}  title={title} imageUrl={imageUrl} size={size}/ >
+        {this.state.sections.map(({id,...otherSectionProps}) => (
+            <MenuItem key={id}  {...otherSectionProps} / >
         ))}
         </div>
     )
