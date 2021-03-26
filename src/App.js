@@ -3,12 +3,9 @@ import './App.css';
 import {Swtich,Route, Switch} from 'react-router-dom'
 
 import HomePage from '../src/pages/homepage/homepage.component.jsx'
+import ShopPage from './pages/shop/shop.component.jsx'
 
-const HatsPage = () =>(
-  <div>
-  <h1>Hats page</h1>
-  </div>
-)
+
 // exact in  Route component means it should  be / only to route it to that page or else it wont
 //for example if its localhost:3000/hats tahat is localhost:3000/ is there to Homepage will be shown as its true exact is either true or false which is boolean so giving no value
 //also means its true without exact the route pages will be shown on one page
@@ -22,7 +19,7 @@ function App() {
     <div >
     <Switch>
     <Route exact path='/' component={HomePage}/>
-    <Route   path='/hats' component={HatsPage}/>
+    <Route   path='/shop' component={ShopPage}/>
     </Switch>
      
     </div>
