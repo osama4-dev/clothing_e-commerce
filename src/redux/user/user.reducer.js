@@ -1,6 +1,11 @@
+import {UserActionTypes} from './user.types'
+
+
 //a reducer is a fucntion which gets two properties it gets a state object which represetns the last state or an initial state and then it recieves an action
 
 //this initial state is what we have given in our app.js file the currentUser:null we will be giving that here
+//...................................................redux-1....................................
+
 
 const INITIAL_STATE = {
   currentUser: null,
@@ -10,7 +15,7 @@ const INITIAL_STATE = {
 //action.type value which will be string
 const userReducer = (state = INITIAL_STATE, action) => {
     switch(action.type){
-        case 'SET_CURRENT_USER':
+        case UserActionTypes.SET_CURRENT_USER:
             return{
                 ...state,
                 currentUser:action.payload
