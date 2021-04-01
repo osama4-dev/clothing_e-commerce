@@ -135,7 +135,7 @@ const SHOP_DATA = [
       {
         id: 20,
         name: 'Grey Jean Jacket',
-        imageUrl: 'https://i.ibb.co/N71k1ML/grey-jean-jacket.png',
+        imageUrl: 'https://i.ibb.co/7rysy5p/Whats-App-Image-2021-03-19-at-9-12-16-PM.jpg',
         price: 90
       },
       {
@@ -154,37 +154,37 @@ const SHOP_DATA = [
   },
   {
     id: 4,
-    title: 'Womens',
+    title: 'Umm...',
     routeName: 'womens',
     items: [
       {
         id: 23,
         name: 'Blue Tanktop',
-        imageUrl: 'https://i.ibb.co/7CQVJNm/blue-tank.png',
+        imageUrl: 'https://i.ibb.co/7rysy5p/Whats-App-Image-2021-03-19-at-9-12-16-PM.jpg',
         price: 25
       },
       {
         id: 24,
         name: 'Floral Blouse',
-        imageUrl: 'https://i.ibb.co/4W2DGKm/floral-blouse.png',
+        imageUrl: 'https://i.ibb.co/7rysy5p/Whats-App-Image-2021-03-19-at-9-12-16-PM.jpg',
         price: 20
       },
       {
         id: 25,
         name: 'Floral Dress',
-        imageUrl: 'https://i.ibb.co/KV18Ysr/floral-skirt.png',
+        imageUrl: 'https://i.ibb.co/7rysy5p/Whats-App-Image-2021-03-19-at-9-12-16-PM.jpg',
         price: 80
       },
       {
         id: 26,
         name: 'Red Dots Dress',
-        imageUrl: 'https://i.ibb.co/N3BN1bh/red-polka-dot-dress.png',
+        imageUrl: 'https://i.ibb.co/7rysy5p/Whats-App-Image-2021-03-19-at-9-12-16-PM.jpg',
         price: 80
       },
       {
         id: 27,
         name: 'Striped Sweater',
-        imageUrl: 'https://i.ibb.co/KmSkMbH/striped-sweater.png',
+        imageUrl: 'https://i.ibb.co/7rysy5p/Whats-App-Image-2021-03-19-at-9-12-16-PM.jpg',
         price: 45
       },
       {
