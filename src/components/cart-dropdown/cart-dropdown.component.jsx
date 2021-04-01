@@ -1,30 +1,43 @@
-import React from "react";
-import { connect } from "react-redux";
-import CustomButton from "../custom-button/custom-button.component";
-import CartItem from "../cart-item/cart-item.component";
-import "./cart-dropdown.styles.scss";
-import {selectCartItems} from '../../redux/cart/cart.selectors'
+import React from 'react';
+import { connect } from 'react-redux';
 import { createStructuredSelector } from 'reselect';
+import { withRouter } from 'react-router-dom';
 
-import FormInput from "../form-input/form-input.component";
+import CustomButton from '../custom-button/custom-button.component';
+import CartItem from '../cart-item/cart-item.component';
+import { selectCartItems } from '../../redux/cart/cart.selectors';
+import { toggleCartHidden } from '../../redux/cart/cart.actions.js';
 
-const CartDropdown = ({ cartItems }) => (
-  <div className="cart-dropdown">
-    <div className="cart-items">
-    {cartItems.map((cartItem) => (
-      <CartItem  key={cartItem.id} item={cartItem} />
-    ))}
+import './cart-dropdown.styles.scss';
+//cartItems.length telling us with ternnaty operator that if the length is not 0 display the cards
+//else show an empty message Your cart is empty
+
+//difference between == and === is "1"==1 is true but "1"===1 is false
+//false are 0,false,undefined,null,NaN,"" an empty string are all false
+const CartDropdown = ({ cartItems, history, dispatch }) => (
+  <div className='cart-dropdown'>
+    <div className='cart-items'>
+      {cartItems.length ? (
+        cartItems.map(cartItem => (
+          <CartItem key={cartItem.id} item={cartItem} />
+        ))
+      ) : (
+        <span className='empty-message'>Your cart is empty</span>
+      )}
     </div>
-    <CustomButton>GO TO CHECKOUT</CustomButton>
+    <CustomButton
+      onClick={() => {
+        history.push('/checkout');
+        dispatch(toggleCartHidden());
+      }}
+    >
+      GO TO CHECKOUT
+    </CustomButton>
   </div>
 );
 
-//instead of this (state) => we are using this 'createStructuredSelector' from reselect 
-const mapStateToProps = createStructuredSelector ({
-  cartItem:selectCartItems
+const mapStateToProps = createStructuredSelector({
+  cartItems: selectCartItems
 });
 
-export default connect(mapStateToProps)(CartDropdown);
-
-
-
+export default withRouter(connect(mapStateToProps)(CartDropdown));
