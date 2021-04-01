@@ -3,6 +3,7 @@ import { ReactComponent as ShoppingIcon } from "../../assets/shopping-bag.svg";
 import { connect } from "react-redux";
 import {selectCartItemsCount} from '../../redux/cart/cart.selectors'
 import { toggleCartHidden } from "../../redux/cart/cart.actions";
+import { createStructuredSelector } from 'reselect';
 
 import "./cart-icon.styles.scss";
 
@@ -23,9 +24,10 @@ const mapDispatchToProps = (dispatch) => ({
 //changed and the output  of the selector is not different then it will not pass it into our component,
 //it will just pass the old value and react render will know not to render it again,one more use of selector is
 //it is also reusable
-
-const mapStateToProps = (state) => ({
-  itemCount: selectCartItemsCount(state)
+//removing mapStateToProps = state => and using createStructuredSelector and also removing
+//itemCount:selectCartItemsCount(state) with simply itemCount:selectCartItemsCount
+const mapStateToProps = createStructuredSelector({
+  itemCount: selectCartItemsCount
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(CartIcon);
