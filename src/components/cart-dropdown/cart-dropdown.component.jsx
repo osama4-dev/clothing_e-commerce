@@ -14,6 +14,8 @@ import './cart-dropdown.styles.scss';
 
 //difference between == and === is "1"==1 is true but "1"===1 is false
 //false are 0,false,undefined,null,NaN,"" an empty string are all false
+//instead of using mapDispatchToProps we had dispatch property in our ...otherProps when we console logged it
+//so we simply use dispatch
 const CartDropdown = ({ cartItems, history, dispatch }) => (
   <div className='cart-dropdown'>
     <div className='cart-items'>
