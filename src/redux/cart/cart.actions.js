@@ -1,6 +1,9 @@
 import CartActionTypes from './cart.types'
 
 //For deleting deleting cart item from cart "STEP 2" making function clearItemFromCart
+//STEP 2 FOR REMOVING ITEM FROM THE ARROWS OF LEFT AND RIGHT WITH QUANTITY NUMBER WRITTEN IN CENTER 
+//here using the fucntion name as removeItem for this above line
+
 export const toggleCartHidden = () => ({
     
 
@@ -15,7 +18,10 @@ export const addItem = item => ({
     payload:item
 
 })
-
+export const removeItem = item =>({
+    type:CartActionTypes.REMOVE_ITEM,
+    payload:item
+})
 export const clearItemFromCart = item => ({
     
 
