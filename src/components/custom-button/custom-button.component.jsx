@@ -6,9 +6,14 @@ import "./custom-button.styles.scss";
 //otherProps are the all the propes given in button like type,value
 
 //isGoogleSign is sepratly used for only google sign in color which we will also be using isGoogleSignIn here and as well as sign in component
-const CustomButton = ({ children, isGoogleSignIn, ...otherProps }) => (
+const CustomButton = ({
+  children,
+  isGoogleSignIn,
+  inverted,
+  ...otherProps
+}) => (
   <button
-    className={`${isGoogleSignIn ? "google-sign-in" : ""} custom-button`}
+    className={`${inverted ? "inverted" : ""} custom-button`}
     {...otherProps}
   >
     {children}

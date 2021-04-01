@@ -8,14 +8,16 @@ import CollectionItem from '../collection-item/collection-item.component.jsx'
 
 //we also destructured our items and are now passing the rest data using spread opearator otherItemProps 
 
+//instead of ...otherprops we passed item in .map parameter and item={item}
+
 const CollectionPreiview = ({ title, items }) => (
   <div className="collection-preview">
     <h1 className="title">{title.toUpperCase()}</h1>
     <div className="preview">
       {items
         .filter((item, idx) => idx < 4)
-        .map(({id,...otherItemProps}) => (
-          <CollectionItem key={id} {...otherItemProps}/>
+        .map((item) => (
+          <CollectionItem key={item.id} item={item}/>
         ))}
     </div>
   </div>
