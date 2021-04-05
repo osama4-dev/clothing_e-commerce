@@ -1,6 +1,10 @@
 import React from "react";
-
+import {Route} from'react-router-dom'
 import CollectionOverview from '../../components/collections-overview/collections-overview.component'
+import CollectionPage from '../collection/collection.component'
+//CategoryPage:we are making category page for every thing to show on its individual page as well as we are 
+//doing nested route, we are using match and in path of the second Route we are giving /:categoryId telling
+//to acces this categoryId as a parameter on the match object when we are inside our category page
 
 //we moved almost everthing in our collections-overview.component file so whatever is written here was applied 
 //here before but now is moved to collections-overview.component
@@ -9,7 +13,9 @@ import CollectionOverview from '../../components/collections-overview/collection
 //SO we basically stored the state in a seprate file called as shop.data.js and we are importing that file as SHOP_DATA
 //and then we are using it in our state of this file by calling it
 
-const ShopPage = ({collections}) => (
+const ShopPage = ({match}) => {
+  console.log(match)
+  return(
   
 //we mapped our collections data so we destructured our collections state here by 'const {collections}=this.state' so we dont have to write this.state.collections
 //whenver we are going to use the state collections, we simply have to write collections now.
@@ -18,11 +24,11 @@ const ShopPage = ({collections}) => (
 //in a more better way
   
     <div className="shop-page">
-    <CollectionOverview/>
-    
+    <Route exact path={`${match.path}`} component={CollectionOverview}/>
+    <Route exact path={`${match.path}/:collectionId`} component={CollectionPage}/>
     </div>
     )
-
+}
    
 
 export default ShopPage
