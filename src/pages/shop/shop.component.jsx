@@ -1,8 +1,11 @@
 import React from "react";
-import {createStructuredSelector} from 'reselect'
-import {selectCollections} from '../../redux/shop/shop.selector'
-import {connect} from 'react-redux'
-import CollectionPreiview from '../../components/collection-preview/collection-preview.component.js'
+
+import CollectionOverview from '../../components/collections-overview/collections-overview.component'
+
+//we moved almost everthing in our collections-overview.component file so whatever is written here was applied 
+//here before but now is moved to collections-overview.component
+//and we did all that to make our collections in its own component
+
 //SO we basically stored the state in a seprate file called as shop.data.js and we are importing that file as SHOP_DATA
 //and then we are using it in our state of this file by calling it
 
@@ -15,16 +18,11 @@ const ShopPage = ({collections}) => (
 //in a more better way
   
     <div className="shop-page">
-    {collections.map(({id , ...otherCollectionProps})=>(
-        <CollectionPreiview key={id}{...otherCollectionProps}/>
-    ))}
+    <CollectionOverview/>
     
     </div>
     )
 
-    const mapStateToProps = createStructuredSelector({
-collections:selectCollections
-    })
-  
+   
 
-export default connect(mapStateToProps)(ShopPage)
+export default ShopPage
