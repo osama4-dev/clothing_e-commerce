@@ -16,6 +16,9 @@ import userReducer from './user/user.reducer'
 import cartReducer from './cart/cart.reducer'
 
 import directoryReducer from './directory/directory.reducer'
+import shopReducer from './shop/shop.reducer'
+//for shopReducer everything is done the same way as done for direcToryRedcuer
+
 // we get the directoryReducer and use it in our const rootReducer = combineReducer 
 //and now in our directory component where we were first placing our data of shop in 
 //we will connect it with our redux and get this there instead of all that array data
@@ -29,7 +32,8 @@ const persistConfig = {
 const rootReducer = combineReducers({
     user:userReducer,
     cart:cartReducer,
-    directory:directoryReducer
+    directory:directoryReducer,
+    shop:shopReducer
 })
 
 export default persistReducer(persistConfig,rootReducer);
