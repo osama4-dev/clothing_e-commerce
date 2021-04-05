@@ -15,6 +15,11 @@ import storage from 'redux-persist/lib/storage'
 import userReducer from './user/user.reducer'
 import cartReducer from './cart/cart.reducer'
 
+import directoryReducer from './directory/directory.reducer'
+// we get the directoryReducer and use it in our const rootReducer = combineReducer 
+//and now in our directory component where we were first placing our data of shop in 
+//we will connect it with our redux and get this there instead of all that array data
+
 const persistConfig = {
     key:'root',
     storage,
@@ -23,7 +28,8 @@ const persistConfig = {
 
 const rootReducer = combineReducers({
     user:userReducer,
-    cart:cartReducer
+    cart:cartReducer,
+    directory:directoryReducer
 })
 
 export default persistReducer(persistConfig,rootReducer);
