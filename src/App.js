@@ -112,3 +112,32 @@ const mapDispatchToProps = (dispatch) => ({
 export default connect(mapStateToProps, mapDispatchToProps)(App);
 
 //A current user in our application shouldnt be able to access our sign in route and then we need two things Redirect and currentUser from redux state
+
+//Difference between session and local storage
+//Session Storage:till we have access of page even if we refresh we would still have our items saved on it that is
+//it will show us the data like the items in cart will be shown even after refreshed(before it was not being shown on refreshed)
+//but if we close the page then we will loose all the data that is loosing all the items that are present
+//in the cart.
+
+//Local Storage:While local storage is a storage which will save your data or items in te cart over here
+//even if we close the page or windows the data still remains at its place.
+//In Local Storage we have setItem and and getItem, the setItem will set the item in localStorage and then 
+//the getItem lets us pull it out of localStorage and we store then in string keys and we can only store them 
+//in strings
+//We use json.stringify to wrap our object inside of a string 
+
+//Done in windows log panel for LOCAL STORAGE
+
+// window.localStorage.setItem('myItem',JSON.stringify(myObj))
+// undefined
+// window.localStorage.getItem('myItem')
+// "{"name":"osama"}"
+// //this was getting the string now if we want to get our object back we will
+// undefined
+// const myRetrieveObh = window.localStorage.getItem('myItem')
+// undefined
+// JSON.parse(myRetrieveObh)
+// {name: "osama"}
+// AND Now we can call it simply in string using
+// myRetrieveObh
+// "{"name":"osama"}"
