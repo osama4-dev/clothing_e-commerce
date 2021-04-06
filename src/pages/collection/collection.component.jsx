@@ -7,12 +7,19 @@ import './collection.styles.scss'
 
 
 const CollectionPage = ({collection}) => {
-    console.log(collection)
+    // console.log(collection)
     // so we are getting hats in our console.log after passing this console.log(match.params.categoryId) which we 
     //were passing before but now istead of that we pass collection as we moidified our code 
+    const {title,items}=collection;
     return(
     <div className="collection-page">
-    <h2>Collection Page</h2></div>
+    <h2 className="title">{title}</h2>
+    <div className="items">
+    {
+        items.map(item => <CollectionItem key={item.id} item={item}/>)
+    }
+    </div>
+    </div>
 )}
 //we pass here the first parameter as 'state' which is the overall reducer state from the top
 //the 2nd argument is the 'ownProps' which is the props of the component we are wrapping in the connect
