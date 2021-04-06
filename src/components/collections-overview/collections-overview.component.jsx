@@ -2,7 +2,7 @@ import React from 'react'
 
 import {connect} from 'react-redux'
 import {createStructuredSelector} from 'reselect'
-import {selectCollections} from '../../redux/shop/shop.selector'
+import {selectCollectionsForPreview} from '../../redux/shop/shop.selector'
 
 import CollectionPreiview from '../collection-preview/collection-preview.component'
 import './collections-overview.styles.scss'
@@ -17,8 +17,14 @@ const CollectionOverview = ({collections}) => (
     ))}
     </div>
 )
+//selectCollections which we were passing here before collections:selectCollections will not work anymore as
+//we have modiefied our shop.data from array to an object and our component using it in collection overview still
+//thinks it is an array so we will convery this object into an array by going to shop.selector
+//now we will be using selectCollectionsForPreview instead of selectCollections from shop.selector file as we changed
+//it from an object into array
+
 const mapStateToProps = createStructuredSelector({
-    collections:selectCollections
+    collections:selectCollectionsForPreview
         })
       
 

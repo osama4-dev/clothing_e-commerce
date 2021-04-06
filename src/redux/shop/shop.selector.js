@@ -35,6 +35,17 @@ export const selectCollections = createSelector(
   (shop) => shop.collections
 );
 
+// we are mkaing this selector in order to change our object into an array when we are passing in collection-overview.component file
+//in our mapStateToProps  collections:selectCollections this data selectCollections
+//s0 over here  "collections => Object.keys(collections).map(key => collections[key])" so what we are saying here is
+//we get all the keys and then map that array of keys then we get the value of our collections object at that key
+//which will give us an array of items that we are trying to get
+
+export const selectCollectionsForPreview = createSelector(
+    [selectCollections],
+    collections => Object.keys(collections).map(key => collections[key])
+)
+
 export const selectCollection = (collectionUrlParam) =>
   createSelector(
     [selectCollections],
