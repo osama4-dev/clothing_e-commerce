@@ -4,14 +4,18 @@ import { Route, Switch, Redirect } from "react-router-dom";
 import { connect } from "react-redux";
 import HomePage from "../src/pages/homepage/homepage.component.jsx";
 import ShopPage from "./pages/shop/shop.component.jsx";
-import CheckoutPage from './pages/checkout/checkout.component'
+import CheckoutPage from "./pages/checkout/checkout.component";
 import Header from "./components/header/header.component.jsx";
 import SignInAndSignUpPage from "./components/sign-in-and-sign-up/sign-in-and-sign-up.component";
-import { auth, createUserProfileDocument } from "./firebase/firebase.utils";
+import {
+  auth,
+  createUserProfileDocument,
+} from "./firebase/firebase.utils";
 import { setCurrentUser } from "./redux/user/user.actions";
-import {selectCurrentUser} from './redux/user/user.selectors'
-import {createStructuredSelector} from 'reselect'
-//USING HEROKU
+import { selectCurrentUser } from "./redux/user/user.selectors";
+import { createStructuredSelector } from "reselect";
+
+//USING HEROKU for deployment
 // exact in  Route component means it should  be / only to route it to that page or else it wont
 //for example if its localhost:3000/hats tahat is localhost:3000/ is there to Homepage will be shown as its true exact is either true or false which is boolean so giving no value
 //also means its true without exact the route pages will be shown on one page
@@ -52,11 +56,15 @@ class App extends React.Component {
       }
 
       //setting user to null as userAuth = null making him sign out getting this auth from library
+      
+
+
       setCurrentUser(userAuth);
+      
     });
   }
   // console.log(user)
-  //ComponetDidMount is opening the subscription and componentWillMount is closing that subscription
+  //ComponetDidMount is opening the subscription  and componentWillMount is closing that subscription
   componentWillUnmount() {
     this.unsubscribeFromAuth();
   }
@@ -72,7 +80,7 @@ class App extends React.Component {
         <Switch>
           <Route exact path="/" component={HomePage} />
           <Route path="/shop" component={ShopPage} />
-          <Route exact path="/checkout" component={CheckoutPage}/>
+          <Route exact path="/checkout" component={CheckoutPage} />
           <Route
             exact
             path="/signin"
@@ -99,10 +107,8 @@ class App extends React.Component {
 // } anymore
 
 const mapStateToProps = createStructuredSelector({
-  currentUser: selectCurrentUser
+  currentUser: selectCurrentUser,
 });
-
-
 
 const mapDispatchToProps = (dispatch) => ({
   setCurrentUser: (user) => dispatch(setCurrentUser(user)),
@@ -121,10 +127,10 @@ export default connect(mapStateToProps, mapDispatchToProps)(App);
 
 //Local Storage:While local storage is a storage which will save your data or items in te cart over here
 //even if we close the page or windows the data still remains at its place.
-//In Local Storage we have setItem and and getItem, the setItem will set the item in localStorage and then 
-//the getItem lets us pull it out of localStorage and we store then in string keys and we can only store them 
+//In Local Storage we have setItem and and getItem, the setItem will set the item in localStorage and then
+//the getItem lets us pull it out of localStorage and we store then in string keys and we can only store them
 //in strings
-//We use json.stringify to wrap our object inside of a string 
+//We use json.stringify to wrap our object inside of a string
 
 //Done in windows log panel for LOCAL STORAGE
 

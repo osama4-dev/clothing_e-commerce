@@ -5,6 +5,7 @@ import rootReducer from './root-reducer'
 //                                          PERSIST STEP 1 (persistStore)
 const middlewares = [];
 //ptutting a condition when to show logger and when to not
+//also which assets and then image named node-env setting
     if(process.env.NODE_ENV === "development"){
         middlewares.push(logger)
     }
