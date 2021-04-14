@@ -3,7 +3,7 @@
 //the combine reducer is then combining all the other reducers here
 
 //............................................................redux-2.............................................
-//persist is basically the lobrary from which the storage is being used
+//persist is basically the library from which the storage is being used
 //For persist we will first wrap our store with persist
 //                                             PERSIST STEP 2(persistReucer)and(persistConfig)
 //we are whitelisting that is focusing only on cart so we send cart in our whitelist

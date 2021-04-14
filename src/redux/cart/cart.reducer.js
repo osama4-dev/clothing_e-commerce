@@ -1,12 +1,10 @@
-
-import CartActionTypes from './cart.types'
-import {addItemToCart,removeItemFromCart} from './cart.utils'
+import CartActionTypes from "./cart.types";
+import { addItemToCart, removeItemFromCart } from "./cart.utils";
 //hidden value to be initially true as we want our our cart model to be hiddien when they first visit our website
-const INITIAL_STATE ={
-    hidden:true,
-    cartItems:[]
-}
-
+const INITIAL_STATE = {
+  hidden: true,
+  cartItems: [],
+};
 
 //in cart items      cartItems:[...state.cartItems,action.payload] over here we are giving our array values and getting the state from initail state
 //For deleting cart item from cart this is "STEP 3"  which is case CartActionTypes.CLEAR_ITEM_FROM_CART:
@@ -17,30 +15,41 @@ const INITIAL_STATE ={
 //After "STEP 4" which is done in cart.utils file we will call that fucntion of removeItemFromCart and use it here
 
 
-const cartReducer = (state = INITIAL_STATE,action) =>{
-    switch(action.type){
-        case CartActionTypes.TOGGLE_CART_HIDDEN:
-            return {
-                ...state,
-                hidden:!state.hidden
-            }
-            case CartActionTypes.ADD_ITEM:
-                return{
-                    ...state,
-                    cartItems:addItemToCart(state.cartItems,action.payload)
-                }
-                case CartActionTypes.REMOVE_ITEM:
-                    return{
-                        ...state,
-                        cartItems:removeItemFromCart(state.cartItems,action.payload)
-                    }
-                case CartActionTypes.CLEAR_ITEM_FROM_CART:
-                    return{
-                        ...state,
-                        cartItems:state.cartItems.filter(cartItem=>cartItem.id !== action.payload.id)
-                    }
-            default:
-                return state;
-    }
-}
-export default cartReducer
+//"4th STEP " we are making all of this saga for clear icon on the header we make a case CartActionTypes.CLEAR_CART:
+//where our cart icon in header will get back to 0 as we are passing empty array 
+
+
+const cartReducer = (state = INITIAL_STATE, action) => {
+  switch (action.type) {
+    case CartActionTypes.TOGGLE_CART_HIDDEN:
+      return {
+        ...state,
+        hidden: !state.hidden,
+      };
+    case CartActionTypes.ADD_ITEM:
+      return {
+        ...state,
+        cartItems: addItemToCart(state.cartItems, action.payload),
+      };
+    case CartActionTypes.REMOVE_ITEM:
+      return {
+        ...state,
+        cartItems: removeItemFromCart(state.cartItems, action.payload),
+      };
+    case CartActionTypes.CLEAR_ITEM_FROM_CART:
+      return {
+        ...state,
+        cartItems: state.cartItems.filter(
+          (cartItem) => cartItem.id !== action.payload.id
+        ),
+      };
+    case CartActionTypes.CLEAR_CART:
+        return {
+            ...state,
+            cartItems:[]
+        }
+    default:
+      return state;
+  }
+};
+export default cartReducer;

@@ -16,6 +16,7 @@ import './cart-dropdown.styles.scss';
 //false are 0,false,undefined,null,NaN,"" an empty string are all false
 //instead of using mapDispatchToProps we had dispatch property in our ...otherProps when we console logged it
 //so we simply use dispatch
+
 const CartDropdown = ({ cartItems, history, dispatch }) => (
   <div className='cart-dropdown'>
     <div className='cart-items'>

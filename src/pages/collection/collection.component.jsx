@@ -14,18 +14,18 @@ import {
     // so we are getting hats in our console.log after passing this console.log(match.params.categoryId) which we 
     //were passing before but now istead of that we pass collection as we moidified our code 
     const CollectionPage = ({ collection }) => {
-        const { title, items } = collection;
-        return (
-          <CollectionPageContainer>
-            <CollectionTitle>{title}</CollectionTitle>
-            <CollectionItemsContainer>
-              {items.map(item => (
-                <CollectionItem key={item.id} item={item} />
-              ))}
-            </CollectionItemsContainer>
-          </CollectionPageContainer>
-        );
-      };
+  const { title, items } = collection;
+  return (
+    <CollectionPageContainer>
+      <CollectionTitle>{title}</CollectionTitle>
+      <CollectionItemsContainer>
+        {items.map(item => (
+          <CollectionItem key={item.id} item={item} />
+        ))}
+      </CollectionItemsContainer>
+    </CollectionPageContainer>
+  );
+};
 //we pass here the first parameter as 'state' which is the overall reducer state from the top
 //the 2nd argument is the 'ownProps' which is the props of the component we are wrapping in the connect
 

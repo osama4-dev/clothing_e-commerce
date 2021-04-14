@@ -7,12 +7,9 @@ import ShopPage from "./pages/shop/shop.component.jsx";
 import CheckoutPage from "./pages/checkout/checkout.component";
 import Header from "./components/header/header.component.jsx";
 import SignInAndSignUpPage from "./components/sign-in-and-sign-up/sign-in-and-sign-up.component";
-import {
-  auth,
-  createUserProfileDocument,
-} from "./firebase/firebase.utils";
-import { setCurrentUser } from "./redux/user/user.actions";
+
 import { selectCurrentUser } from "./redux/user/user.selectors";
+import {checkUserSession} from './redux/user/user.actions'
 import { createStructuredSelector } from "reselect";
 
 //USING HEROKU for deployment
@@ -33,10 +30,13 @@ class App extends React.Component {
   //so we set our user in didMount fucntion which is a one time call function runs after render we are setting a current user with value user from auth of firebase
   // this.props.setCurrentUser destructured = this.props now we can simple use setCurrentUser
   componentDidMount() {
-    const { setCurrentUser } = this.props;
-    this.unsubscribeFromAuth = auth.onAuthStateChanged(async (userAuth) => {
-      if (userAuth) {
-        const userRef = await createUserProfileDocument(userAuth);
+
+    const {checkUserSession}=this.props
+    checkUserSession();
+    //we will now do all of the below code work in user.saga.js file
+    // this.unsubscribeFromAuth = auth.onAuthStateChanged(async (userAuth) => {
+    //   if (userAuth) {
+    //     const userRef = await createUserProfileDocument(userAuth);
 
         //we check if they are signin in so if there is we will get back the userRef from our createUserProfileDocument method
         //from the userAuth object being passed in if there is a document there we get the userRef which is line 44 and go on to
@@ -47,21 +47,21 @@ class App extends React.Component {
 
         //onSnapShot is similar to onAuthStateChanged method
         //now we are using this.props.setCurrentUser from mapDispatchToProps
-        userRef.onSnapshot((snapShot) => {
-          setCurrentUser({
-            id: snapShot.id,
-            ...snapShot.data(),
-          });
-        });
-      }
+      //   userRef.onSnapshot((snapShot) => {
+      //     setCurrentUser({
+      //       id: snapShot.id,
+      //       ...snapShot.data(),
+      //     });
+      //   });
+      // }
 
       //setting user to null as userAuth = null making him sign out getting this auth from library
       
 
 
-      setCurrentUser(userAuth);
+    //   setCurrentUser(userAuth);
       
-    });
+    // });
   }
   // console.log(user)
   //ComponetDidMount is opening the subscription  and componentWillMount is closing that subscription
@@ -78,6 +78,7 @@ class App extends React.Component {
       <div>
         <Header />
         <Switch>
+        
           <Route exact path="/" component={HomePage} />
           <Route path="/shop" component={ShopPage} />
           <Route exact path="/checkout" component={CheckoutPage} />
@@ -107,15 +108,15 @@ class App extends React.Component {
 // } anymore
 
 const mapStateToProps = createStructuredSelector({
-  currentUser: selectCurrentUser,
+  currentUser: selectCurrentUser
 });
 
-const mapDispatchToProps = (dispatch) => ({
-  setCurrentUser: (user) => dispatch(setCurrentUser(user)),
-});
+const mapDispatchToProps= dispatch =>({
+  checkUserSession:() => dispatch(checkUserSession())
+})
 
 //null for the first one as we dont need any mapStateToProps
-export default connect(mapStateToProps, mapDispatchToProps)(App);
+export default connect(mapStateToProps,mapDispatchToProps)(App);
 
 //A current user in our application shouldnt be able to access our sign in route and then we need two things Redirect and currentUser from redux state
 

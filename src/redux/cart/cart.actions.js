@@ -4,6 +4,10 @@ import CartActionTypes from './cart.types'
 //STEP 2 FOR REMOVING ITEM FROM THE ARROWS OF LEFT AND RIGHT WITH QUANTITY NUMBER WRITTEN IN CENTER 
 //here using the fucntion name as removeItem for this above line
 
+//"STEP 2 " for clearing cart icon from header by making simple "export const clearCart = () => ({
+//     type:CartActionTypes.CLEAR_CART
+// })" then going to cart.sagas.js file
+
 export const toggleCartHidden = () => ({
     
 
@@ -28,4 +32,7 @@ export const clearItemFromCart = item => ({
     type:CartActionTypes.CLEAR_ITEM_FROM_CART,
     payload:item
 
+})
+export const clearCart = () => ({
+    type:CartActionTypes.CLEAR_CART
 })

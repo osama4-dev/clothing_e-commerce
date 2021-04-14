@@ -10,6 +10,7 @@ import CollectionItem from '../collection-item/collection-item.component.jsx'
 
 //instead of ...otherprops we passed item in .map parameter and item={item}
 
+
 const CollectionPreiview = ({ title, items }) => (
   <div className="collection-preview">
     <h1 className="title">{title.toUpperCase()}</h1>

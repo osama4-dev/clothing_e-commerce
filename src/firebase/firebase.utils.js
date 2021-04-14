@@ -102,13 +102,25 @@ export const convertCollectionsSnapshotToMap=(collections)=>{
   },{})
   // console.log(transformCollection)
 }
+//getting curretnUser for user session in user.saga
+export const getCurrentUser = () => {
+  return new Promise((resolve,reject)=>{
+    const unsubscribe=auth.onAuthStateChanged(userAuth=>{
+      unsubscribe();
+      resolve(userAuth);
+
+    },reject)
+  })
+}
 
 export const auth = firebase.auth();
 export const firestore = firebase.firestore();
 
 //for google
-const provider = new firebase.auth.GoogleAuthProvider();
-provider.setCustomParameters({ prompt: "select_account" });
-export const signInWithGoogle = () => auth.signInWithPopup(provider);
+//exporting our googleProvider out so we can use it in our user.saga.js file so we can import it there
+//as we have removed the code from app.js file
+export const googleProvider = new firebase.auth.GoogleAuthProvider();
+googleProvider.setCustomParameters({ prompt: 'select_account' });
+export const signInWithGoogle = () => auth.signInWithPopup(googleProvider);
 
 export default firebase;
