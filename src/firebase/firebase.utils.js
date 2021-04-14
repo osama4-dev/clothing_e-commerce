@@ -33,7 +33,6 @@ export const createUserProfileDocument = async (userAuth, additionalData) => {
   //by userRef.get
   //the snapShot simply represents the data ,for updating,creating or delting we will use documentRef object,it also tells us if the data is present in database or not you can try it by console.log(snapShot) under const "snapShot = await userRef.get();""
   const snapShot = await userRef.get();
-  
 
   if (!snapShot.exists) {
     const { displayName, email } = userAuth;
@@ -58,60 +57,58 @@ export const createUserProfileDocument = async (userAuth, additionalData) => {
     }
   }
   return userRef;
-
-
-  // console.log(snapShot)
-  // console.log(firestore.doc('users/34324dsfds'))
 };
-export const addCollectionAndDocuments = async (collectionKey,objectsToAdd)=>{
-  const collectionRef = firestore.collection(collectionKey)
-  
-//forEach is similar to .map but it does not send the same array as .map does,we call the function on each element by using forEach
-//instead of writing newDocRef.set we will write batch.set(newDocRef,obj)
-//after this batch function we dont need id and route name in our data which is in shop.data file as firebase will generate for us itself
+
+// console.log(snapShot)
+// console.log(firestore.doc('users/34324dsfds'))
+export const addCollectionAndDocuments = async (
+  collectionKey,
+  objectsToAdd
+) => {
+  const collectionRef = firestore.collection(collectionKey);
+
+  //forEach is similar to .map but it does not send the same array as .map does,we call the function on each element by using forEach
+  //instead of writing newDocRef.set we will write batch.set(newDocRef,obj)
+  //after this batch function we dont need id and route name in our data which is in shop.data file as firebase will generate for us itself
   const batch = firestore.batch();
-  objectsToAdd.forEach(obj => {
-    const newDocRef = collectionRef.doc(obj.title)
-    batch.set(newDocRef,obj)
-  })
+  objectsToAdd.forEach((obj) => {
+    const newDocRef = collectionRef.doc(obj.title);
+    batch.set(newDocRef, obj);
+  });
 
-  return await batch.commit()
-
-}
-//this convertCollectionsSnapshotToMap is done for our data to look same as it is in firestore with the name collections,we will log out the transformCollection and then import 
+  return await batch.commit();
+};
+//this convertCollectionsSnapshotToMap is done for our data to look same as it is in firestore with the name collections,we will log out the transformCollection and then import
 //this convertCollectionsSnapshotToMap in shop.component file and use it componentDidMount method this is done so we have our data in right shape we want and right place in out
-//component tree 
-export const convertCollectionsSnapshotToMap=(collections)=>{
-  const transformCollection = collections.docs.map(
-    doc=>{
-      const{title,items}=doc.data()
-      return{
-        routeName: encodeURI(title.toLowerCase()),
-        id:doc.id,
-        title,
-        items
-      }
-    }
-  )
+//component tree
+export const convertCollectionsSnapshotToMap = (collections) => {
+  const transformCollection = collections.docs.map((doc) => {
+    const { title, items } = doc.data();
+    return {
+      routeName: encodeURI(title.toLowerCase()),
+      id: doc.id,
+      title,
+      items,
+    };
+  });
   //we pass in this initial object which is {} empty brackets this initial object goes into first new collection called transformedCollection and it sets the first value
   //the title and in lowerCase which will then be eqval to its collection.Example an empty hats objects in lowercase which is then eqval to hats collections,then empty jacket object
   //with jackets collections and so on
-  return transformCollection.reduce((accumulator,collection)=>{
-    accumulator[collection.title.toLowerCase()]=collection;
-    return accumulator
-  },{})
+  return transformCollection.reduce((accumulator, collection) => {
+    accumulator[collection.title.toLowerCase()] = collection;
+    return accumulator;
+  }, {});
   // console.log(transformCollection)
-}
+};
 //getting curretnUser for user session in user.saga
 export const getCurrentUser = () => {
-  return new Promise((resolve,reject)=>{
-    const unsubscribe=auth.onAuthStateChanged(userAuth=>{
+  return new Promise((resolve, reject) => {
+    const unsubscribe = auth.onAuthStateChanged((userAuth) => {
       unsubscribe();
       resolve(userAuth);
-
-    },reject)
-  })
-}
+    }, reject);
+  });
+};
 
 export const auth = firebase.auth();
 export const firestore = firebase.firestore();
@@ -120,7 +117,7 @@ export const firestore = firebase.firestore();
 //exporting our googleProvider out so we can use it in our user.saga.js file so we can import it there
 //as we have removed the code from app.js file
 export const googleProvider = new firebase.auth.GoogleAuthProvider();
-googleProvider.setCustomParameters({ prompt: 'select_account' });
+googleProvider.setCustomParameters({ prompt: "select_account" });
 export const signInWithGoogle = () => auth.signInWithPopup(googleProvider);
 
 export default firebase;

@@ -22,9 +22,13 @@ import {
 //called our auth,googleProvider and createUserProfileDocument from firebase by exporting it all from firebase.util.js file
 //this auth.SignInWithPopup we were running the same thing in firebase.util.js file
 
-export function* getSnapshotFromUserAuth(userAuth,additionalData) {
+export function* getSnapshotFromUserAuth(userAuth, additionalData) {
   try {
-    const userRef = yield call(createUserProfileDocument, userAuth,additionalData);
+    const userRef = yield call(
+      createUserProfileDocument,
+      userAuth,
+      additionalData
+    );
     const userSnapshot = yield userRef.get();
     yield put(signInSuccess({ id: userSnapshot.id, ...userSnapshot.data() }));
   } catch (error) {
@@ -69,17 +73,16 @@ export function* signOut() {
   }
 }
 
-export function* signUp({ payload: { email, password, dispalyName } }) {
+export function* signUp({ payload: { email, password, displayName } }) {
   try {
     const { user } = yield auth.createUserWithEmailAndPassword(email, password);
-    yield put(signUpSuccess({user,additionalData:{dispalyName}}))
+    yield put(signUpSuccess({ user, additionalData: { displayName } }));
   } catch (error) {
-    put(signUpFailure(error));
+    yield put(signUpFailure(error));
   }
 }
-
-export function* signInAfterSignUp({payload:{user,additionalData}}){
-  yield getSnapshotFromUserAuth(user,additionalData)
+export function* signInAfterSignUp({ payload: { user, additionalData } }) {
+  yield getSnapshotFromUserAuth(user, additionalData);
 }
 
 export function* onGoogleSignInStart() {
@@ -101,8 +104,8 @@ export function* onSignUpStart() {
   yield takeLatest(UserActionTypes.SIGN_UP_START, signUp);
 }
 
-export function* onSignUpSuccess(){
-  yield takeLatest(UserActionTypes.SIGN_UP_SUCCESS,signInAfterSignUp)
+export function* onSignUpSuccess() {
+  yield takeLatest(UserActionTypes.SIGN_UP_SUCCESS, signInAfterSignUp);
 }
 //now in order for all this to work we need to export this out then import it in our root saga file
 
@@ -113,6 +116,6 @@ export function* userSaga() {
     call(oncheckUserSession),
     call(onSignOutStart),
     call(onSignUpStart),
-    call(onSignUpSuccess)
+    call(onSignUpSuccess),
   ]);
 }

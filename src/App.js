@@ -1,4 +1,4 @@
-import React from "react";
+import React,{useEffect} from "react";
 import "./App.css";
 import { Route, Switch, Redirect } from "react-router-dom";
 import { connect } from "react-redux";
@@ -23,16 +23,18 @@ import { createStructuredSelector } from "reselect";
 
 //Header or navbar should always be out of switch
 
-class App extends React.Component {
-  unsubscribeFromAuth = null;
+const App=({checkUserSession,currentUser})=> {
 
+  useEffect(()=>{
+    checkUserSession();
+  },[checkUserSession])
   //user in parameters is the state of auth in firebase project
   //so we set our user in didMount fucntion which is a one time call function runs after render we are setting a current user with value user from auth of firebase
   // this.props.setCurrentUser destructured = this.props now we can simple use setCurrentUser
-  componentDidMount() {
+ 
+  // componentDidMount() {
 
-    const {checkUserSession}=this.props
-    checkUserSession();
+  //   checkUserSession();
     //we will now do all of the below code work in user.saga.js file
     // this.unsubscribeFromAuth = auth.onAuthStateChanged(async (userAuth) => {
     //   if (userAuth) {
@@ -62,18 +64,16 @@ class App extends React.Component {
     //   setCurrentUser(userAuth);
       
     // });
-  }
+  // }
   // console.log(user)
   //ComponetDidMount is opening the subscription  and componentWillMount is closing that subscription
-  componentWillUnmount() {
-    this.unsubscribeFromAuth();
-  }
+  
 
   //we are setting current user in our header for the sign out
 
   //we have used mapStateToProps here the currentUser we are getting from store then simply using javascript and redirect to give condition
   //that if the user is logged in redirect him to home page or redirect him to signin and sign up page
-  render() {
+  
     return (
       <div>
         <Header />
@@ -86,7 +86,7 @@ class App extends React.Component {
             exact
             path="/signin"
             render={() =>
-              this.props.currentUser ? (
+              currentUser ? (
                 <Redirect to="/" />
               ) : (
                 <SignInAndSignUpPage />
@@ -97,7 +97,7 @@ class App extends React.Component {
       </div>
     );
   }
-}
+
 //mapDispatchToProps is for letting us use the action which is from user.action.js file
 //dispatching setCurrentUser with user in parameter as the payload as done in user.action.js file
 //and now we dont need this constructor() {

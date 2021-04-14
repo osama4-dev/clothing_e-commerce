@@ -50,14 +50,14 @@ export const signOutFailure =(error)=>({
     payload:error
 })
 //userCredentials is email,password and displayName
-export const signUpStart =(userCredentials)=>({
+export const signUpStart = userCredentials =>({
     type:UserActionTypes.SIGN_UP_START,
     payload:userCredentials
 })
 //user is what we always pass and the additional data is coming from firebase.utils.js file
-export const signUpSuccess = (user,additionalData) =>({
+export const signUpSuccess = ({user,additionalData }) =>({
     type:UserActionTypes.SIGN_UP_SUCCESS,
-    payload:{user,additionalData}
+    payload:{user,additionalData }
 })
 
 export const signUpFailure = error => ({

@@ -1,4 +1,4 @@
-import React from "react";
+import React,{useState} from "react";
 
 //as we are importing our action from user.actions googleSignInStart which is in redux file
 //for action we need to dispatch actions which is mapDispatchToProps and inorder to get those actions
@@ -14,53 +14,49 @@ import { googleSignInStart,emailSignInStart } from "../../redux/user/user.action
 
 import "./sign-in.styles.scss";
 
-class SignIn extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      email: "",
-      password: "",
-    };
-  }
+const SignIn =({emailSignInStart,googleSignInStart})=>{
+  const[userCredentials,setCredentials]=useState({email:'',password:''})
+  //before we were using class component so the detail bottom is written about that
   //this.setState({ email: "", password: "" }); is destructured as const {email,password} = this.state
   //we got emailSignInStart from user.actions.js file then we dispatch the action at the bottom 
   //and then we use that action here in out handle submit function which is emailSignInStart then we go to
   //our user.sagas.js file and import our emailSignInSuccess,emailSignInFailure and use them in user.saga.js file
-  handleSubmit = async (event) => {
+  const { email, password } = userCredentials;
+
+  const handleSubmit = async event => {
     event.preventDefault();
-    const {emailSignInStart}=this.props
-    const { email, password } = this.state;
     emailSignInStart(email,password)
     
   };
 
-  handleChange = (event) => {
+  const handleChange = (event) => {
     const { value, name } = event.target;
-    this.setState({ [name]: value });
+    // this.setState({ [name]: value });
+    setCredentials({...userCredentials, [name]: value });
+
   };
 
-  render() {
-    const { googleSignInStart } = this.props;
+ 
     return (
       <div className="sign-in">
         <h2>I already have an account</h2>
         <span>Sign in with your email and password</span>
-        <form onSubmit={this.handleSubmit}>
+        <form onSubmit={handleSubmit}>
           <FormInput
             name="email"
             type="email"
-            handleChange={this.handleChange}
+            handleChange={handleChange}
             label="email"
-            value={this.state.email}
+            value={email}
             required
           />
 
           <FormInput
             name="password"
             type="password"
-            value={this.state.password}
+            value={password}
             label="password"
-            handleChange={this.handleChange}
+            handleChange={handleChange}
             required
           />
           <div className="buttons">
@@ -80,7 +76,7 @@ class SignIn extends React.Component {
       </div>
     );
   }
-}
+
 const mapDispatchToProps = (dispatch) => ({
   googleSignInStart: () => dispatch(googleSignInStart()),
   emailSignInStart:(email,password) => dispatch(emailSignInStart({email,password}))
