@@ -3,7 +3,7 @@ import { Route } from "react-router-dom";
 import CollectionsOverviewContainer from "../../components/collections-overview/collections-overview.container";
 import CollectionPageContainer from "../collection/collection.container";
 import { connect } from "react-redux";
-import { fetchCollectionsFailure, fetchCollectionsStart } from '../../redux/shop/shop.actions';
+import {  fetchCollectionsStart } from '../../redux/shop/shop.actions';
 //fetchCollectionStart method which is coming from shop.sagas.js file
 
 //CategoryPage:we are making category page for every thing to show on its individual page as well as we are

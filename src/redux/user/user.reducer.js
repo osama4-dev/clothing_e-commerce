@@ -10,6 +10,7 @@ import UserActionTypes from "./user.types";
 const INITIAL_STATE = {
   currentUser: null,
   error: null,
+  success:null
 };
 
 //if the state is ever undefined it will go to initial state
@@ -20,11 +21,14 @@ const INITIAL_STATE = {
 
 const userReducer = (state = INITIAL_STATE, action) => {
   switch (action.type) {
+
     case UserActionTypes.SIGN_IN_SUCCESS:
+      case UserActionTypes.SIGN_UP_SUCCESS:
       return {
         ...state,
         currentUser: action.payload,
         error: null,
+        success:action.lmao
       };
     //if the user is successfull make error null if the user has failed then show error with action.payload
     case UserActionTypes.SIGN_OUT_SUCCESS:
@@ -32,6 +36,7 @@ const userReducer = (state = INITIAL_STATE, action) => {
         ...state,
         currentUser: null,
         error: null,
+        success:action.lmao
       };
     case UserActionTypes.SIGN_IN_FAILURE:
     case UserActionTypes.SIGN_OUT_FAILURE:

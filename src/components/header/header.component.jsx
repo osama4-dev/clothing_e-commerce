@@ -38,9 +38,9 @@ const Header = ({ currentUser, hidden,signOutStart }) => (
       <CartIcon />
     </div>
     {hidden ? null : <CartDropdown />}
+    
   </div>
 );
-
 //so we are telling here we want root reducer  then we want the user value which will give us our userReducer which is the value we passed as well as the userReducer file
 // and then from there we want our value
 

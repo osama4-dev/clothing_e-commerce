@@ -32,6 +32,7 @@ export const fetchCollectionsStartAsync = () => {
     //doing this using promise by using .get and then .then
     collectionRef.get().then((snapshot) => {
       const collectionsMap = convertCollectionsSnapshotToMap(snapshot);
+      console.log("data",collectionsMap);
       dispatch (fetchCollectionsSuccess(collectionsMap))
     }).catch(error => dispatch(fetchCollectionsFailure(error.message)))
   };

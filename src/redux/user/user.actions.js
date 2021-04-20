@@ -4,24 +4,28 @@
 //now we go to user.saga.js file 
 
 import UserActionTypes from './user.types'
+import {toast} from 'react-toastify'
 //an action created which will be now used in user.reducer.js file which the 2nd value in parameter (state,actions) 
 
 //......................................................redux-3............................................
 
 //doing this for sign-in.component.jsx
 //for google 
+toast.configure();
+
 export const googleSignInStart=()=>({
     type:UserActionTypes.GOOGLE_SIGN_IN_START
 })
 
 export const signInSuccess = (user) =>({
     type:UserActionTypes.SIGN_IN_SUCCESS,
-    payload:user
+    payload:user,
+    lmao:toast.success("Sign In Successful")
 })
 
 export const signInFailure = error => ({
     type:UserActionTypes.SIGN_IN_FAILURE,
-    payload:error
+    payload:toast.error(error.message)
 })
 
 
@@ -42,7 +46,8 @@ export const signOutStart =()=>({
 })
 
 export const signOutSuccess =()=>({
-    type:UserActionTypes.SIGN_OUT_SUCCESS
+    type:UserActionTypes.SIGN_OUT_SUCCESS,
+    lmao:toast("Signed Out")
 })
 
 export const signOutFailure =(error)=>({
@@ -57,12 +62,14 @@ export const signUpStart = userCredentials =>({
 //user is what we always pass and the additional data is coming from firebase.utils.js file
 export const signUpSuccess = ({user,additionalData }) =>({
     type:UserActionTypes.SIGN_UP_SUCCESS,
-    payload:{user,additionalData }
+    payload:{user,additionalData },
+    lmao:toast.success("Sign Up Successful")
+
 })
 
 export const signUpFailure = error => ({
     type:UserActionTypes.SIGN_UP_FAILURE,
-    payload:error
+    payload:toast.error(error.message)
 })
 
 

@@ -1,6 +1,6 @@
 import React,{useEffect} from "react";
 import "./App.css";
-import { Route, Switch, Redirect } from "react-router-dom";
+import {  Switch } from "react-router-dom";
 import { connect } from "react-redux";
 import HomePage from "../src/pages/homepage/homepage.component.jsx";
 import ShopPage from "./pages/shop/shop.component.jsx";
@@ -11,6 +11,10 @@ import SignInAndSignUpPage from "./components/sign-in-and-sign-up/sign-in-and-si
 import { selectCurrentUser } from "./redux/user/user.selectors";
 import {checkUserSession} from './redux/user/user.actions'
 import { createStructuredSelector } from "reselect";
+import Test from './testfile/test'
+
+import PrivateRoute from './Route/PrivateRoute';
+import PublicRoute from './Route/PublicRoute' 
 
 //USING HEROKU for deployment
 // exact in  Route component means it should  be / only to route it to that page or else it wont
@@ -79,25 +83,29 @@ const App=({checkUserSession,currentUser})=> {
         <Header />
         <Switch>
         
-          <Route exact path="/" component={HomePage} />
-          <Route path="/shop" component={ShopPage} />
-          <Route exact path="/checkout" component={CheckoutPage} />
-          <Route
-            exact
-            path="/signin"
-            render={() =>
-              currentUser ? (
-                <Redirect to="/" />
-              ) : (
-                <SignInAndSignUpPage />
-              )
-            }
-          />
-        </Switch>
-      </div>
-    );
-  }
-
+          <PublicRoute restricted={false} exact path="/" component={HomePage} />
+          <PublicRoute restricted={false} path="/shop" component={ShopPage} />
+          <PublicRoute restricted={true} path="/signin" component={SignInAndSignUpPage} />
+          <PrivateRoute exact path="/checkout" component={CheckoutPage} />
+          </Switch>
+          </div>
+          );
+        }
+        
+                 // <PublicRoute path="/Test" component={Test}/>
+        
+                  // <Route
+                  //   exact
+                  //   path="/signin"
+                  //   render={() =>
+                  //     currentUser ? (
+                  //       <Redirect to="/" />
+                  //     ) : (
+                  //       <SignInAndSignUpPage />
+                  //     )
+                  //   }
+                  // />
+        
 //mapDispatchToProps is for letting us use the action which is from user.action.js file
 //dispatching setCurrentUser with user in parameter as the payload as done in user.action.js file
 //and now we dont need this constructor() {

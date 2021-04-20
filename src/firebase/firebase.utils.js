@@ -23,17 +23,17 @@ firebase.initializeApp(config);
 //as createUserProfileDoc is an api call so it is asynchronous and we use async
 export const createUserProfileDocument = async (userAuth, additionalData) => {
   if (!userAuth) return;
-
   const userRef = firestore.doc(`users/${userAuth.uid}`);
-
+  
   // "collectionRef" is used to fetch fata or get the data from database
-
+  
   //so over here we are getting the userRef which is getting the snapShot as given in the image
   //so first we will show the path of of our user by userAuth.uid which is giving the refrence and then get that
   //by userRef.get
   //the snapShot simply represents the data ,for updating,creating or delting we will use documentRef object,it also tells us if the data is present in database or not you can try it by console.log(snapShot) under const "snapShot = await userRef.get();""
   const snapShot = await userRef.get();
-
+  
+  // console.log("Firebase ka dara",snapShot)
   if (!snapShot.exists) {
     const { displayName, email } = userAuth;
     const createdAt = new Date();
@@ -59,6 +59,7 @@ export const createUserProfileDocument = async (userAuth, additionalData) => {
   return userRef;
 };
 
+
 // console.log(snapShot)
 // console.log(firestore.doc('users/34324dsfds'))
 export const addCollectionAndDocuments = async (
@@ -78,6 +79,7 @@ export const addCollectionAndDocuments = async (
 
   return await batch.commit();
 };
+
 //this convertCollectionsSnapshotToMap is done for our data to look same as it is in firestore with the name collections,we will log out the transformCollection and then import
 //this convertCollectionsSnapshotToMap in shop.component file and use it componentDidMount method this is done so we have our data in right shape we want and right place in out
 //component tree
